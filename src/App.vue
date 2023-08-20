@@ -5,7 +5,7 @@
     <employee-table
       @delete:employee="deleteEmployee"
       @edit:employee="EditEmployee"
-      :employeesData="employeesData"
+      :employeesData="employeesData" 
     />
   </div>
 </template>
