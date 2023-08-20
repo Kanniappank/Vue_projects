@@ -1,13 +1,17 @@
 <template>
   <div class="small-container">
     <h1>Employee</h1>
-    <employee-form @add:employeeFormData="addEmployee"/>
-    <employee-table :employeesData="employeesData"/>
+    <employee-form @add:employeeFormData="addEmployee" />
+    <employee-table
+      @delete:employee="deleteEmployee"
+      @edit:employee="EditEmployee"
+      :employeesData="employeesData"
+    />
   </div>
 </template>
 
 <script>
-import EmployeeForm from './components/EmployeeForm.vue';
+import EmployeeForm from "./components/EmployeeForm.vue";
 import EmployeeTable from "./components/EmployeeTable.vue";
 
 export default {
@@ -25,11 +29,20 @@ export default {
       ],
     };
   },
-  methods:{
-    addEmployee(employee){
-        this.employeesData=[...this.employeesData,employee]
-      }
-  }
+  methods: {
+    addEmployee(employeeFormData) {
+      employeeFormData.id = this.employeesData.length
+        ? this.employeesData.length + 1
+        : 0;
+      this.employeesData = [...this.employeesData, employeeFormData];
+    },
+    deleteEmployee(id) {
+      this.employeesData = this.employeesData.filter((item) => item.id != id);
+    },
+    EditEmployee(id,updatingEmployee){
+      this.employeesData.map(item=> item.id==id?updatingEmployee:item)
+    }
+  },
 };
 </script>
 
